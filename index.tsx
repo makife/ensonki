@@ -107,11 +107,14 @@ export default function HomeScreen() {
 
   const handleGameModeSelect = (mode: 'points' | 'timed') => {
     setShowGameModeModal(false);
-    // Navigate to game screen with selected options
-    router.push({
-      pathname: '/game',
-      params: { type: selectedGameType, mode }
-    });
+    // Doğrudan parametrelerle navigasyon
+    try {
+      router.push(`/game?type=${selectedGameType}&mode=${mode}`);
+    } catch (error) {
+      console.error('Navigation error:', error);
+      // Fallback olarak basit navigasyon deneyin
+      router.push('/game');
+    }
   };
 
   const navigateToTournament = () => {
